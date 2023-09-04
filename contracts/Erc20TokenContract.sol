@@ -15,6 +15,7 @@ contract Erc20TokenContract is ERC20, ERC20Burnable, Pausable, AccessControl {
     mapping(address => bool) internal _fullLockList;
 
     event fullLockEvent(address indexed account, bool isLocked);
+    event mintEvent(address to, uint256 amount);
 
     constructor() ERC20("CODA", "CODA") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -47,7 +48,7 @@ contract Erc20TokenContract is ERC20, ERC20Burnable, Pausable, AccessControl {
         return true;
     }
 
-    function fullLockedAddressList(address account) external view virtual returns (bool) {
+    function isAddressLocked(address account) external view virtual returns (bool) {
         return _fullLockList[account];
     }
 
